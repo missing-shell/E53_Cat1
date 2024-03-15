@@ -12,14 +12,14 @@
 
 - **AT 命令必须使用英文标点符号**
 
-```json
+```AT
 AT+CIMI   //测试是否识别到卡
 AT+CSQ    //卡信号强度
 ```
 
 - AT+CREG CS 域网络注册状态
 
-```json
+```AT
 AT+CREG?  //是否有服务
 ->+CREG: 1,1  //第一位含义为启用网络注册URC +CREG: <stat>，若为0则需运行下列命令
 
@@ -38,7 +38,7 @@ AT+CREG=2      //启用带有位置信息的网络注册URC。
 
 ### 拨打和接听电话
 
-```json
+```AT
 ATD 10086;
 ATH  //挂断电话
 ATA  //接听电话
@@ -46,7 +46,7 @@ ATA  //接听电话
 
 ### 发送短信
 
-```json
+```AT
 AT+CMGF=1 //设置短信为文本格式
 AT+CSCS="GSM"  //设置 TE 输入字符集格式为 GSM 格式。
 AT+CMGS="15966607851"  //填写手机号。
@@ -58,7 +58,7 @@ AT+CMGS="15966607851"  //填写手机号。
 
 - mqtt 相关指令
 
-```json
+```AT
 AT+QMTCFG MQTT 参数配置，选指令，连接发起前配置，如不配置则按默认值连接。
 
 AT+QMTOPEN：打开 MQTT 客户端网络。
@@ -80,7 +80,7 @@ AT+QMTUNS：退订主题。
 
 首先，您需要确保 EC800M 模块已经连接到网络。这通常涉及到设置 APN（接入点名称）。
 
-```json
+```AT
 AT+CGDCONT=1,"IP","CMNET"   //设置 APN。需要 your.apn.com 替换为你的 APN。
 
 AT+CGACT=1,1//激活CID=1的数据承载
@@ -111,7 +111,7 @@ AT+CGATT?//检查网络状态，若返回 +CGATT: 1则表示设备已经连接�
 
 - 配置接收模式。
 
-```json
+```AT
 
 AT+QMTCFG="recv/mode",0,0,1
 ->  OK
@@ -119,7 +119,7 @@ AT+QMTCFG="recv/mode",0,0,1
 
 - 配置阿里云设备信息。
 
-```json
+```AT
 
 AT+QMTCFG="aliauth",0,"k0leyWHxYT1","Cat1","3af7bc8812cb475e042a0a5ae377c6a1"
 ->  OK
@@ -127,7 +127,7 @@ AT+QMTCFG="aliauth",0,"k0leyWHxYT1","Cat1","3af7bc8812cb475e042a0a5ae377c6a1"
 
 - 测试命令
 
-```json
+```AT
 AT+QMTOPEN=?
 ->  +QMTOPEN: (0-5),"hostname",(1-65535)
 ->  OK
@@ -135,7 +135,7 @@ AT+QMTOPEN=?
 
 - MQTT 客户端打开网络。
 
-```json
+```AT
 
 AT+QMTOPEN=0,"iot-06z00i8mcbcop1x.mqtt.iothub.aliyuncs.com",1883
 ->  OK
@@ -144,7 +144,7 @@ AT+QMTOPEN=0,"iot-06z00i8mcbcop1x.mqtt.iothub.aliyuncs.com",1883
 
 - **在 mqtt 客户端打开网络命令发出后，尽快发出本条命令。否则可能会返回+QMTSTAT: 0,1 错误，就得重来一遍了命令解释：客户端端口号 0，因为服务器上 mqtt 并未设置其它参数，所以这里写 0**
 
-```json
+```AT
 AT+QMTCONN=0,0
 ->  OK
 ->  +QMTCONN: 0,0,0
@@ -154,7 +154,7 @@ AT+QMTCONN=0,0
 
 - 查询命令
 
-```json
+```AT
 AT+QMTOPEN?
 ->  +QMTOPEN: 0,"iot-as-mqtt.cn-shanghai.aliyuncs.com",1883
 ->  OK
@@ -162,14 +162,14 @@ AT+QMTOPEN?
 
 - 测试命令
 
-```json
+```AT
 AT+QMTCONN=?
 ->  +QMTCONN: (0-5),"clientid","username","password"
 ```
 
 - ~~配置设备信息~~，测试时命令报错，
 
-```json
+```AT
 //客户端连接MQTT 服务器。
 // 若已连接阿里云，可使用 AT+QMTCFG="aliauth"提前配置设备信息，之后可省略<username>和<password>。
 AT+QMTCONN=0,"clientExample"
@@ -180,7 +180,7 @@ AT+QMTCONN=0,"clientExample"
 
 在连接成功后，您可以订阅一个或多个主题以接收消息。
 
-```json
+```AT
 AT+QMTSUB=0,1,"/sys/k0leyWHxYT1/Cat1/thing/service/property/set",2
 ```
 
@@ -203,7 +203,7 @@ Topic 使用阿里云物模型 Topic
 
 - 测试命令
 
-```json
+```AT
 AT+QMTPUBEX=?
 -> +QMTPUBEX: (0-5),<msgid>,(0-2),(0,1),"topic","length"
 
@@ -212,7 +212,7 @@ AT+QMTPUBEX=?
 
 - 设置命令
 
-```json
+```AT
 AT+QMTPUBEX=0,0,0,0,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post",30  //30代表字节长度
 ```
 
@@ -247,7 +247,7 @@ AT+QMTPUBEX=0,0,0,0,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post",30  //30�
 
 #### 5.退订主题
 
-```json
+```AT
 AT+QMTUNS=0,2,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post"
 ->  OK
 
@@ -256,7 +256,7 @@ AT+QMTUNS=0,2,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post"
 
 #### 6.关闭客户端
 
-```json
+```AT
 AT+QMTDISC=0   断开客户端
 ->  OK
 
