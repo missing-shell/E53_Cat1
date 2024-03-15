@@ -91,22 +91,25 @@ AT+CGATT?//检查网络状态，若返回 +CGATT: 1则表示设备已经连接�
 
 #### 2.设置 MQTT 参数
 
-接下来，您需要设置 MQTT 的服务器地址、端口、用户名和密码，具体见阿里云配置页面
+接下来，您需要设置 MQTT 的服务器地址、端口、用户名和密码,参照下列格式，具体见阿里云配置页面
+
+- 设备证书
 
 ```json
-//设备证书
 {
   "ProductKey": "k0leyWHxYT1",
   "DeviceName": "Cat1",
   "DeviceSecret": "3af7bc8812cb475e042a0a5ae377c6a1"
 }
+```
 
-//MQTT连接参数
+- MQTT 连接参数
+
+```json
 {
-  "mqttHostUrl":"iot-06z00i8mcbcop1x.mqtt.iothub.aliyuncs.com",
-  "port":1883
+  "mqttHostUrl": "iot-06z00i8mcbcop1x.mqtt.iothub.aliyuncs.com",
+  "port": 1883
 }
-
 ```
 
 - 配置接收模式。
@@ -167,7 +170,7 @@ AT+QMTCONN=?
 ->  +QMTCONN: (0-5),"clientid","username","password"
 ```
 
-- ~~配置设备信息~~，测试时命令报错，
+- ~~配置设备信息测试时命令报错~~
 
 ```AT
 //客户端连接MQTT 服务器。
@@ -237,8 +240,16 @@ AT+QMTPUBEX=0,0,0,0,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post",30  //30�
 - 通过串口发送的 json 中不能包含换行符，否则阿里云物模型会出现 6207(非标准 json 格式)错误。
 
 ```json
-{"id":"123","version":"1.0","sys":{"ack":0},"params":{"LINK_TEST":126},"method":"thing.event.property.post"}
+{
+  "id": "123",
+  "version": "1.0",
+  "sys": { "ack": 0 },
+  "params": { "LINK_TEST": 126 },
+  "method": "thing.event.property.post"
+}
+```
 
+```AT
 -> OK
 -> +QMTPUBEX: 0,0,0
 ```
