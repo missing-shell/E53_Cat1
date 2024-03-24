@@ -5,8 +5,8 @@
 extern "C"
 {
 #endif
+    void ec800_uart_task_create(void);
 
-    void uart_task_create(void);
 #ifdef __cplusplus
 }
 #endif

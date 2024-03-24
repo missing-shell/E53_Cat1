@@ -240,13 +240,7 @@ AT+QMTPUBEX=0,0,0,0,"/sys/k0leyWHxYT1/Cat1/thing/event/property/post",30  //30�
 - 通过串口发送的 json 中不能包含换行符，否则阿里云物模型会出现 6207(非标准 json 格式)错误。
 
 ```json
-{
-  "id": "123",
-  "version": "1.0",
-  "sys": { "ack": 0 },
-  "params": { "LINK_TEST": 126 },
-  "method": "thing.event.property.post"
-}
+{"id": "123","version": "1.0","sys": { "ack": 0 },"params": { "LINK_TEST": 129 },"method": "thing.event.property.post"}
 ```
 
 ```AT
@@ -274,4 +268,6 @@ AT+QMTDISC=0   断开客户端
 ->  +QMTDISC: 0,0
 ```
 
-## 使用 esp32+EC800M-CN 实现(2G/3G/4G)MQTT
+## 使用 esp32c6+EC800M-CN 实现(2G/3G/4G)MQTT
+
+? 透传
