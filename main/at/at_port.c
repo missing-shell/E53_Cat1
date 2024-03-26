@@ -4,6 +4,11 @@
  * @Date: 2021-04-04
  * @Last Modified by: roger.luo
  * @Last Modified time: 2021-11-27
+ *
+ * @Author: missing-shell
+ * @Date: 2024-03-25
+ * @Last Modified by: missing-shell
+ * @Last Modified time: 2024-03-26
  */
 #include <stddef.h>
 #include <stdlib.h>
@@ -26,7 +31,6 @@ void at_free(void *ptr)
 {
     vPortFree(ptr);
 }
-
 /**
  * @brief Gets the total number of milliseconds in the system.
  */
@@ -36,7 +40,7 @@ unsigned int at_get_ms(void)
     TickType_t ticks = xTaskGetTickCount();
 
     // 将滴答数转换为毫秒数
-    
+
     unsigned int ms = ticks * 1000 / configTICK_RATE_HZ;
 
     return ms;
