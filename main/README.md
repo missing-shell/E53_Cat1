@@ -10,13 +10,11 @@
 
 `ec800m_cn.c`和`at_device.c`的区别不够明确，两者都定义了`at`命令函数。
 
-并且没有启用`at.debug`
-
 ```c
 .recv_bufsize = UART_BUF_SIZE, // 接收缓冲区大小
 .urc_bufsize = UART_BUF_SIZE
 ```
 
-的不可定义太大，否则可能创建`at`对象不成功。
+UART_BUF_SIZE不可定义太大，否则可能创建`at`对象不成功。
 
 `cmakelist`中需要注册为`src_at`,否则可能出现链接失败。
